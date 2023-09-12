@@ -13,3 +13,8 @@ L'application est le site d'une agence evenementielle.
 
 ## Tests
 - `yarn test`
+
+
+Début du projet : 12 09 2023
+
+Fin du projet : 

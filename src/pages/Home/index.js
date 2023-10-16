@@ -1,3 +1,5 @@
+// Note: Home page
+import React, { useState, useEffect } from "react";
 import Menu from "../../containers/Menu";
 import ServiceCard from "../../components/ServiceCard";
 import EventCard from "../../components/EventCard";
@@ -13,7 +15,25 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const {last} = useData()
+  const {data, error} = useData()
+  const [loading, setLoading] = useState(true);
+  const [lastElement, setLastElement] = useState({});
+
+  const filteredLastElement =()=> {
+    const array = data.events.slice(-1);
+    setLastElement(array[0]);
+  }
+
+  useEffect(() => {
+    if(data) {
+      setLoading(false)
+      filteredLastElement();
+    }
+    else if(error) {
+      setLoading(true)
+    }
+  },[data])
+
   return <>
     <header>
       <Menu />
@@ -116,13 +136,14 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
+        {loading ? ("Chargement...") : (
         <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
+          imageSrc={ lastElement.cover}
+          title={ lastElement.title}
+          date={new Date(lastElement.date)}
           small
           label="boom"
-        />
+        />)}
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>

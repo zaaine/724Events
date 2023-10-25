@@ -34,6 +34,7 @@ const Page = () => {
     }
   },[data])
 
+
   return <>
     <header>
       <Menu />

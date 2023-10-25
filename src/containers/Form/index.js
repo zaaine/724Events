@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Field, { FIELD_TYPES } from "../../components/Field";
 import Select from "../../components/Select";
@@ -16,7 +16,7 @@ const Form = ({ onSuccess, onError }) => {
       // We try to call mockContactApi
       try {
         await mockContactApi();
-        setSending(false);
+        setSending(true);
       } catch (err) {
         setSending(false);
         onError(err);
@@ -24,7 +24,18 @@ const Form = ({ onSuccess, onError }) => {
     },
     [onSuccess, onError]
   );
+
+  useEffect(() => {
+    if(sending){
+      console.log("[FORM]UseEffect formulaire envoyé");
+      onSuccess();
+    }
+    else{
+      console.log("[FORM]UseEffect formulaire non envoyé");
+    }
+  }, [sending]);
   return (
+    
     <form onSubmit={sendContact}>
       <div className="row">
         <div className="col">
@@ -39,6 +50,7 @@ const Form = ({ onSuccess, onError }) => {
           />
           <Field placeholder="" label="Email" />
           <Button type={BUTTON_TYPES.SUBMIT} disabled={sending}>
+            {/* Si sending est true alors on affiche "En cours" sinon on affiche "Envoyer" */}
             {sending ? "En cours" : "Envoyer"}
           </Button>
         </div>

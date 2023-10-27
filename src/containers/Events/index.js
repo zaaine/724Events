@@ -20,6 +20,7 @@ const EventList = () => {
   const [type, setType] = useState();
   // eslint-disable-next-line no-unused-vars
   const [currentPage, setCurrentPage] = useState(1);
+
   const filteredEvents = (
     (!type ? data?.events : data?.events.filter((event)=> event.type === type) ))
 
@@ -64,11 +65,10 @@ const EventList = () => {
             // du tableau alors on affiche que les elements qui ont le type selectionné
             onChange={(value) => 
               (value ? changeType(value) : changeType(null))
-            
             }
           />
           <div id="events" className="ListContainer">
-            {filteredEvents.map((event) => (
+            {filteredEvents?.map((event) => (
               <Modal key={event.id} Content={<ModalEvent event={event} />}>
                 {({ setIsOpened }) => (
                   <EventCard

@@ -115,14 +115,21 @@ const Page = () => {
     </main>
     <footer className="row">
       <div className="col presta">
-        <h3>Notre derniére prestation</h3>
-        <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
-          small
-          label="boom"
-        />
+      <h3>Notre dernière prestation</h3>
+{last ? (
+  <>
+    {/* <div>Debug: {JSON.stringify(last)}</div> */}
+    <EventCard
+      imageSrc={last.cover}
+      title={last.title}
+      date={new Date(last.date)}
+      small
+      label="boom"
+    />
+  </>
+) : (
+  <div>Loading or no data available...</div>
+)}
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
@@ -130,16 +137,16 @@ const Page = () => {
         <div>01 23 45 67 89</div>
         <div>contact@77events.com</div>
         <div>
-          <a href="#twitch">
+          <a href="#twitch" aria-label="Twitch">
             <Icon name="twitch" />
           </a>
-          <a href="#facebook">
+          <a href="#facebook" aria-label="Facebook">
             <Icon name="facebook" />
           </a>
-          <a href="#twitter">
+          <a href="#twitter" aria-label="Twitter">
             <Icon name="twitter" />
           </a>
-          <a href="#youtube">
+          <a href="#youtube" aria-label="YouTube">
             <Icon name="youtube" />
           </a>
         </div>

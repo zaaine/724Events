@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Form from "./index";
 
 describe("When Events is created", () => {
@@ -14,15 +14,18 @@ describe("When Events is created", () => {
     it("the success action is called", async () => {
       const onSuccess = jest.fn();
       render(<Form onSuccess={onSuccess} />);
-      fireEvent(
-        await screen.findByTestId("button-test-id"),
-        new MouseEvent("click", {
-          cancelable: true,
-          bubbles: true,
-        })
-      );
+
+      // Find the button and click it
+      const submitButton = await screen.findByTestId("button-test-id");
+      fireEvent.click(submitButton);
+
+      // Wait for the button to show "En cours"
       await screen.findByText("En cours");
-      await screen.findByText("Envoyer");
+
+      // Wait for the mock API call to resolve and the state to update
+      await waitFor(() => expect(screen.queryByText("Envoyer")).toBeInTheDocument());
+
+      // Now that the mock API call has resolved, the onSuccess should have been called
       expect(onSuccess).toHaveBeenCalled();
     });
   });

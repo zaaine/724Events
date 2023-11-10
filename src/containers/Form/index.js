@@ -26,15 +26,17 @@ const Form = ({ onSuccess, onError }) => {
 
       try {
         await mockContactApi();
+        onSuccess();
         setSending(false);
       } catch (err) {
-        setSending(false);
         onError(err);
+        setSending(false);
       }
     },
     [onSuccess, onError]
   );
 
+  
   return (
     <form onSubmit={sendContact}>
       <div className="row">

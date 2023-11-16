@@ -15,7 +15,7 @@ const Menu = () => (
         <a href="#nos-realisations">Nos réalisations</a>
       </li>
       <li>
-        <a href="#notre-equipe">Notre équipe</a>
+        <a href="#nos-equipes">Notre équipe</a>
       </li>
     </ul>
     <Button title="contact" onClick={() => (window.document.location.hash = "#contact")}>

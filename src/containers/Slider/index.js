@@ -15,10 +15,10 @@ const Slider = () => {
 
   useEffect(() => {
     // Deplacement de la logique de transition automatique (fonction 'nextCard')
-    // création d'une variable pour le timer
+    // création d'une variable timerOutId
     const timeOutId = setTimeout(() => {
       // Verification de l'index par rapport à l'index précèdent (-1 pour éviter l'affichage d'une image blanche)
-      setIndex((prevIndex) => (prevIndex < (byDateDesc?.length || 0) - 1 ? prevIndex + 1 : 0));
+      setIndex((prevIndex) => (prevIndex < (byDateDesc?.length ?? 0) - 1 ? prevIndex + 1 : 0));
     }, 5000);
     // Nettoyage du timer lorsqu'un composant est démonté ou que l'index change
     return () => clearTimeout(timeOutId);

@@ -19,10 +19,13 @@ export const api = {
 export const DataProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
+  // Ajout du statut 'last'
   const [last, setLast] = useState(null);
   const getData = useCallback(async () => {
     try {
+      // Fonction appelée que si 'data' est nul
       if(!data) {
+        // Charge les données en utilisant 'api.loadData'
         setData(await api.loadData());
       }
     } catch (err) {
@@ -32,13 +35,19 @@ export const DataProvider = ({ children }) => {
   
   useEffect(() => {
     // if (data) return;
+    // Appel de la fonction 'getData' pour charger les données lorsqu'elles n'ont pas encore été chargées.
     getData();
+    // L'effet ce joueras à chaque fois que 'getData' sera mis en condition
   }, [getData]);
 
+  // Ajout d'un effet pour calculer et mettre à jour le props 'last'
   useEffect(() => {
+    // Si des données et des données 'focus'sont présente
     if (data && data.focus){
+      // Utilise la fonction pour comparer les dates et en extraire la valeur la plus haute
       setLast(data.focus.sort((evtA, evtB) => new Date(evtB.date) - new Date(evtA.date))[0])
     }
+    // L'effet ce joueras à chaque fois que 'data' sera mis en condition.
   }, [data])
   
   return (
@@ -47,6 +56,7 @@ export const DataProvider = ({ children }) => {
       value={{
         data,
         error,
+        // Ajout du props 'last' pour récupérer la valeur
         last
       }}
     >

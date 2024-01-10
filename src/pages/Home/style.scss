@@ -130,6 +130,8 @@ p {
   top: -32px;
   background-color: white;
   width: 100%;
+  // Masque le contenu exédentaire pour afficher une seule image à la fois dans le slider
+  overflow: hidden;
 }
 
 footer {

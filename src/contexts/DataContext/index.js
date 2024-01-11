@@ -42,7 +42,7 @@ export const DataProvider = ({ children }) => {
 
   // Ajout d'un effet pour calculer et mettre à jour le props 'last'
   useEffect(() => {
-    // Si des données et des données 'focus'sont présente
+    // Si des données et des données 'events' (prestation) sont présente
     if (data && data.events){
       // Utilise la fonction pour comparer les dates et en extraire la valeur la plus haute
       setLast(data.events.sort((evtA, evtB) => new Date(evtB.date) - new Date(evtA.date))[0])

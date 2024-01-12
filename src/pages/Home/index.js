@@ -10,6 +10,8 @@ import Logo from "../../components/Logo";
 import Icon from "../../components/Icon";
 import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
+import ModalEvent from "../../containers/ModalEvent";
+
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
@@ -22,7 +24,7 @@ const Page = () => {
       <section className="SliderContainer">
         <Slider />
       </section>
-      <section className="ServicesContainer">
+      <section className="ServicesContainer" id="nos-services"> {/* Ajout id, référence au lien de navigation */}
         <h2 className="Title">Nos services</h2>
         <p>Nous organisons des événements sur mesure partout dans le monde</p>
         <div className="ListContainer">
@@ -51,11 +53,11 @@ const Page = () => {
           </ServiceCard>
         </div>
       </section>
-      <section className="EventsContainer">
+      <section className="EventsContainer" id="nos-realisations" data-testid='events.testid'> {/* Ajout id, référence au lien de navigation + un dataTestid référence pour le test */}
         <h2 className="Title">Nos réalisations</h2>
         <EventList />
       </section>
-      <section className="PeoplesContainer">
+      <section className="PeoplesContainer" id="notre-equipe" data-testid='people.testid'> {/* Ajout id, référence au lien de navigation + un dataTestid référence pour le test */}
         <h2 className="Title">Notre équipe</h2>
         <p>Une équipe d’experts dédiés à l’ogranisation de vos événements</p>
         <div className="ListContainer">
@@ -113,16 +115,32 @@ const Page = () => {
         </Modal>
       </div>
     </main>
-    <footer className="row">
-      <div className="col presta">
+    <footer className="row" data-testid='footer.testid'> {/* Ajout d'un dataTestid */}
+      <div className="col presta" data-testid='last.testid'> {/* Ajout d'un dataTestid */}
         <h3>Notre derniére prestation</h3>
-        <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
-          small
-          label="boom"
-        />
+        {/* Ajout de la méthode pour ouvrir la modale avec les descriptions détaillés de la dernière prestation */}
+        {
+          last && <Modal
+            Content={
+              <ModalEvent 
+                event={last}
+              />
+            }
+          >
+            {({ setIsOpened }) => (
+              <EventCard
+                // Ajout de la propriété 'onClick' pour l'ouverture de la 'Modale'
+                onClick={() => setIsOpened(true)}
+                // Récupération des détails de la dernière prestation
+                imageSrc={last?.cover}
+                title={last?.title}
+                date={new Date(last?.date)}
+                small
+                label={last?.type}
+              />
+            )}
+          </Modal>
+        }
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>

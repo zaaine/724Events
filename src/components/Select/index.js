@@ -15,8 +15,11 @@ const Select = ({
 }) => {
   const [value, setValue] = useState();
   const [collapsed, setCollapsed] = useState(true);
+  // Scénario 5 : Un bouton radio me permet de filtrer les catégories
+   // cette partie de code gére l'onglet select Nos réalisations Catégories
+   // onchange doit contenir une valeur initiale,sinon sera undifined. permet de résoudre le bug
   const changeValue = (newValue) => {
-    onChange();
+    onChange(newValue);
     setValue(newValue);
     setCollapsed(newValue);
   };

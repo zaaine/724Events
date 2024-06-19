@@ -7,8 +7,9 @@ import "./style.scss";
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
+  // Scenario 1 = modification de la fonction sort (inversion evtB, evtA)
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
-    new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
+    new Date(evtB.date) < new Date(evtA.date) ? -1 : 1
   );
   const nextCard = () => {
     setTimeout(

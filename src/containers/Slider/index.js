@@ -13,10 +13,12 @@ const Slider = () => {
   );
   const nextCard = () => {
     setTimeout(
-      () => setIndex(index < byDateDesc.length ? index + 1 : 0),
+      // Ajout d'un -1 à  byDateDesc.length vérifie si l'index actuel est inférieur au dernier index valide du tableau
+      () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0),
       5000
     );
-  };
+  
+};
   useEffect(() => {
     nextCard();
   });

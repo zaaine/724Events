@@ -13,6 +13,7 @@ const Slider = () => {
   );
   const nextCard = () => {
     setTimeout(
+      // Scenario 2 : A la fin du défilement le slider revient au début sans slide blanche
       // Ajout d'un -1 à  byDateDesc.length vérifie si l'index actuel est inférieur au dernier index valide du tableau
       () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0),
       5000
@@ -44,12 +45,15 @@ const Slider = () => {
           <div className="SlideCard__paginationContainer">
             <div className="SlideCard__pagination">
               {byDateDesc.map((_, radioIdx) => (
-                <input
-                  key={`${event.id}`}
-                  type="radio"
-                  name="radio-button"
-                  checked={idx === radioIdx}
-                />
+                // Scénario 3 : warning console modification de la key qui doit être unique.
+                // readOnly permet de synchro le bulletpoint sur la slide en cours
+                   <input
+                     key={`${_.title}`}
+                     type="radio"
+                     name="radio-button"
+                     checked={index === radioIdx}
+                     readOnly
+                   />
               ))}
             </div>
           </div>

@@ -7,7 +7,9 @@ export const FIELD_TYPES = {
   TEXTAREA: 2,
 };
 
-const Field = ({ type = FIELD_TYPES.INPUT_TEXT, label, name, placeholder }) => {
+// Scénario 7 : Ajout de nouvelle props dans les fields pour controler les champs et les nettoyer
+
+const Field = ({ type = FIELD_TYPES.INPUT_TEXT, label, name, placeholder, value, onChange, required }) => {
   let component;
   switch (type) {
     case FIELD_TYPES.INPUT_TEXT:
@@ -17,11 +19,15 @@ const Field = ({ type = FIELD_TYPES.INPUT_TEXT, label, name, placeholder }) => {
           name={name}
           placeholder={placeholder}
           data-testid="field-testid"
+          onChange={onChange}
+          required={required}
+          value={value}
         />
       );
       break;
     case FIELD_TYPES.TEXTAREA:
-      component = <textarea name={name} data-testid="field-testid" />;
+      component = <textarea name={name} data-testid="field-testid"   onChange={onChange} required={required}
+      value={value}/>;
       break;
     default:
       component = (
@@ -30,6 +36,9 @@ const Field = ({ type = FIELD_TYPES.INPUT_TEXT, label, name, placeholder }) => {
           name={name}
           placeholder={placeholder}
           data-testid="field-testid"
+          onChange={onChange}
+          required={required}
+          value={value}
         />
       );
   }
@@ -46,12 +55,18 @@ Field.propTypes = {
   name: PropTypes.string,
   label: PropTypes.string,
   placeholder: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  required: PropTypes.bool,
 };
  Field.defaultProps = {
    label: "",
    placeholder: "",
    type: FIELD_TYPES.INPUT_TEXT,
    name: "field-name",
+   value: "",
+   onChange: () => null,
+   required: false,
  }
 
 export default Field;

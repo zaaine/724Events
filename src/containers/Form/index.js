@@ -16,6 +16,8 @@ const Form = ({ onSuccess, onError }) => {
       try {
         await mockContactApi();
         setSending(false);
+          // Scénario 6 : La fonction OnSuccess n'est pas appelé lors de la validation (ajout L20)
+        onSuccess()
       } catch (err) {
         setSending(false);
         onError(err);

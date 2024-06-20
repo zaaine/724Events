@@ -13,7 +13,18 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const {last} = useData()
+  // scénario 9 : Event card doit afficher le dernier evenement
+  // Utilise un hook useData pour récupérer des données et les déstructure pour obtenir data
+  // remplacement de last par data
+  const {data} = useData() 
+    // console.log("last:", last); === UNDIFINED
+    //  création variable last avec Sort pour trie les événements dans data.events par date, du plus récent au plus ancien.
+    const last = data?.events.sort((evtA, evtB) =>
+      new Date(evtB.date) - new Date(evtA.date)
+    )[0];
+
+
+
   return <>
     <header>
       <Menu />
@@ -116,13 +127,17 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
+ {/* Cette condition utilise l'opérateur logique && pour vérifier si last est défini et non null ou undefined. */}
+ { last && (  
         <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
-          small
-          label="boom"
+        imageSrc={last?.cover}
+        title={last?.title}
+        date={new Date(last?.date)}
+        small
+        label={last?.type}
+        // modification du label
         />
+        )}
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>

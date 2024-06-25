@@ -47,9 +47,9 @@ describe("When Events is created", () => {
       console.log('emailInput:', emailInput);
       console.log('messageInput:', messageInput);
 
-      fireEvent.change(nomInput, { target: { value: "Doe" } });
-      fireEvent.change(prenomInput, { target: { value: "John" } });
-      fireEvent.change(emailInput, { target: { value: "john.doe@example.com" } });
+      fireEvent.change(nomInput, { target: { value: "zaaine" } });
+      fireEvent.change(prenomInput, { target: { value: "aziz" } });
+      fireEvent.change(emailInput, { target: { value: "aziz.Zed@gmail.com" } });
       fireEvent.change(messageInput, { target: { value: "Test message" } });
 
       fireEvent(
